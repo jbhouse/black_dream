@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.http import HttpResponseForbidden
-# from replies.forms import ReplyForm
+from replies.forms import ReplyForm
 from django.views import generic
 from posts.models import Post
 from replies.models import Reply
@@ -26,6 +26,18 @@ class PostList(generic.ListView):
         context['post_list'] = super().get_queryset().order_by('-created_at')
         return context
 
-class PostDetail(generic.DetailView):
+class PostDisplay(generic.DetailView):
     model = Post
     template_name = 'posts/detail.html'
+    def get_context_data(self, **kwargs):
+        context = super(PostDisplay, self).get_context_data(**kwargs)
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        self.post_replies = Post.objects.prefetch_related("replies").get(id=post.pk)
+        context['reply_form'] = ReplyForm()
+        context['post_replies'] = self.post_replies.replies.all()
+        return context
+
+class PostDetail(View):
+    def get(self, request, *args, **kwargs):
+        view = PostDisplay.as_view()
+        return view(request, *args, **kwargs)

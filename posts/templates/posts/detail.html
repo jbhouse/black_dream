@@ -1,5 +1,42 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block javascript %}
+  <script>
+    $('.reply-form').on('submit',function(e){
+      e.preventDefault();
+      var that = $(this)
+      var reply = $('#reply').val()
+      var postId = document.getElementById('reply-button').getAttribute('name').slice(11,document.getElementById('reply-button').getAttribute('name').length)
+      makeReply();
+      function makeReply(){
+        $.ajax({
+          url       : "{% url 'replies:create' %}",
+          type      : "POST",
+          data      : {reply:reply, postId:postId},
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+          },
+          success : function(){
+            console.log('it worked');
+          }
+        })
+      }
+    })
+  </script>
+{% endblock %}
 {% block content %}
   <h2>{{post.title}}</h2>
   <h3>{{post.details}}</h3>
+  <div class="container">
+    <form class='reply-form' method="post">
+      {% csrf_token %}
+      {% bootstrap_form reply_form %}
+      <input id='reply-button' type='submit' name='post-reply-{{post.id}}' class='btn btn-primary' value='Post Reply'>
+    </form>
+    {% for reply in post_replies %}
+      <h4>{{reply.text}}</h4>
+      <p>Posted by: {{reply.user}} On: {{reply.created_at}}</p>
+    {% endfor %}
+  </div>
 {% endblock %}
