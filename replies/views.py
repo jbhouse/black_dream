@@ -23,6 +23,7 @@ def CreateReply(request):
         response_data['postId'] = postId
         response_data['sender_id'] = sender.pk
         response_data['text'] = new_reply.text
+        response_data['id'] = new_reply.pk
         response_data['username'] = new_reply.user.username
         return JsonResponse(response_data)
 
