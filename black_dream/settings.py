@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bootstrap3',
+    'posts',
+    'replies',
     'accounts',
     'contact',
     'events',

@@ -21,11 +21,24 @@
 
   <nav class="navbar mynav" role='navigation' id='navbar'>
     <div class="container">
-      <a class='navbar-brand mynav' href="{% url 'home' %}">Home</a>
+      <a href="#"class='navbar-brand mynav'>Posts</a>
+      <a href="#"class='navbar-brand mynav'>|</a>
+      <a href="#"class='navbar-brand mynav'>Events</a>
+      <a href="#"class='navbar-brand mynav'>|</a>
+      <a href="#"class='navbar-brand mynav'>Contact</a>
+      <a href="#"class='navbar-brand mynav'>|</a>
+      <a href="#"class='navbar-brand mynav'>Poetry</a>
+      <a href="#"class='navbar-brand mynav'>|</a>
+      <a href="#"class='navbar-brand mynav'>Photo Gallery</a>
+      <a href="#"class='navbar-brand mynav'>|</a>
+      <a href="#"class='navbar-brand mynav'>Podcasts</a>
+      <a href="#"class='navbar-brand mynav'>|</a>
+      <a href="#"class='navbar-brand mynav'>Videos</a>
 
       <ul class='nav navbar-nav navbar-right'>
         {% if user.is_authenticated %}
-          <li><a href="{% url 'accounts:logout' %}"class="btn btn-simple">Log Out</a></li>
+          <li><a class="btn btn-simple" href="{% url 'home' %}">Home</a></li>
+          <li><a class="btn btn-simple" href="{% url 'accounts:logout' %}">Log Out</a></li>
         {% else %}
           <li><a href="{% url 'accounts:login' %}">Log In</a></li>
           <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
