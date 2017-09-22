@@ -1,0 +1,2 @@
+  <h1><a href="{% url 'posts:detail' pk=post.pk %}">{{post.title}}</a></h1>
+  <h2>{{post.details|truncatechars:50}}</h2>
