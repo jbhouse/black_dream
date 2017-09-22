@@ -3,6 +3,11 @@
 {% load static %}
 {% block javascript %}
   <script>
+    $('a.delete').on('click',function(e){
+      e.preventDefault();
+      console.log('delete prevented');
+    })
+
     $('.reply-form').on('submit',function(e){
       e.preventDefault();
       var that = $(this)
@@ -17,8 +22,9 @@
           beforeSend: function (xhr) {
             xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
           },
-          success : function(){
-            console.log('it worked');
+          success : function(json){
+            $('.post-replies').prepend("<h4>"+json.text+"</h4><p>Posted by: "+ json.username+" <a class='delete' id='reply-"+json.id+"' href='#'>Delete</a></p>")
+            document.getElementById('reply').value = ''
           }
         })
       }
@@ -34,9 +40,18 @@
       {% bootstrap_form reply_form %}
       <input id='reply-button' type='submit' name='post-reply-{{post.id}}' class='btn btn-primary' value='Post Reply'>
     </form>
-    {% for reply in post_replies %}
-      <h4>{{reply.text}}</h4>
-      <p>Posted by: {{reply.user}} On: {{reply.created_at}}</p>
-    {% endfor %}
+    <div class="post-replies">
+      {% for reply in post_replies %}
+        {% if reply.user == request.user %}
+          <h4>{{reply.text}}</h4>
+          <p>Posted by: {{reply.user}} <a class='delete' id='reply-{{reply.pk}}' href='#'>Delete</a></p>
+          <p>On: {{reply.created_at}}</p>
+        {% else %}
+          <h4>{{reply.text}}</h4>
+          <p>Posted by: {{reply.user}}</p>
+          <p>On: {{reply.created_at}}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}
