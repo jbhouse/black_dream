@@ -27,5 +27,9 @@ def CreateReply(request):
         response_data['username'] = new_reply.user.username
         return JsonResponse(response_data)
 
-def DeleteReply(request):
-    pass
+def DeleteReply(request, **kwargs):
+    response_data = {}
+    reply = get_object_or_404(Reply, pk=kwargs['pk'])
+    reply.delete()
+    response_data['id'] = kwargs['pk']
+    return JsonResponse(response_data)
