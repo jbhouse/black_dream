@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/',include('accounts.urls',namespace='accounts')),
     url(r'^posts/',include('posts.urls',namespace='posts')),
+    url(r'^poems/',include('poetry.urls',namespace='poems')),
     url(r'^replies/',include('replies.urls',namespace='replies')),
 ]
