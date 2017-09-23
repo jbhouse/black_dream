@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-# from . import views
 from django.conf.urls.static import static
 from django.conf import settings
-from home.views import Home
+from home.views import Home,Contact
 
 urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
+    url(r'^contact/$', Contact.as_view(), name='contact'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/',include('accounts.urls',namespace='accounts')),
     url(r'^posts/',include('posts.urls',namespace='posts')),
