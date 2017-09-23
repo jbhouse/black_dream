@@ -3,9 +3,24 @@
 {% load static %}
 {% block javascript %}
   <script>
-    $('a.delete').on('click',function(e){
+    $('div.post-replies').on('click','a',function(e){
       e.preventDefault();
-      console.log('delete prevented');
+      var that = $(this)
+      var replyId = that.attr('id').slice(6,that.attr('id').length)
+      deleteReply();
+      function deleteReply(){
+        $.ajax({
+          url : "/replies/delete/"+replyId,
+          type : "DELETE",
+          data : {replyId:replyId},
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+          },
+          success : function(json){
+            $('#reply-'+json.id).parent().parent().addClass('hidden')
+          }
+        })
+      }
     })
 
     $('.reply-form').on('submit',function(e){
@@ -23,7 +38,7 @@
             xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
           },
           success : function(json){
-            $('.post-replies').prepend("<h4>"+json.text+"</h4><p>Posted by: "+ json.username+" <a class='delete' id='reply-"+json.id+"' href='#'>Delete</a></p>")
+            $('.post-replies').prepend("<div><h4>"+json.text+"</h4><p><a class='delete' id='reply-"+json.id+"' href='#'><span class='glyphicon glyphicon-remove text-danger'></span><span class='text-danger icon-label'>Delete</span></a></p></div>")
             document.getElementById('reply').value = ''
           }
         })
@@ -43,13 +58,22 @@
     <div class="post-replies">
       {% for reply in post_replies %}
         {% if reply.user == request.user %}
-          <h4>{{reply.text}}</h4>
-          <p>Posted by: {{reply.user}} <a class='delete' id='reply-{{reply.pk}}' href='#'>Delete</a></p>
-          <p>On: {{reply.created_at}}</p>
+          <div>
+            <h4>{{reply.text}}</h4>
+            <p>
+              <a class='delete' id='reply-{{reply.pk}}' href='#'>
+                <span class='glyphicon glyphicon-remove text-danger'></span>
+                <span class='text-danger icon-label'>Delete</span>
+              </a>
+            </p>
+            <p>On: {{reply.created_at}}</p>
+          </div>
         {% else %}
-          <h4>{{reply.text}}</h4>
-          <p>Posted by: {{reply.user}}</p>
-          <p>On: {{reply.created_at}}</p>
+          <div>
+            <h4>{{reply.text}}</h4>
+            <p>Posted by: {{reply.user}}</p>
+            <p>On: {{reply.created_at}}</p>
+          </div>
         {% endif %}
       {% endfor %}
     </div>
