@@ -18,7 +18,7 @@
 
   </head>
   <body>
-  <link rel="stylesheet" href="static/css/base.css">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <nav class="nav navbar-nav mynav" role='navigation' id='navbar'>
     <div class="container">
       <a href="{% url 'posts:list' %}"class='nav-element navbar-brand mynav'>Posts</a>
@@ -61,6 +61,7 @@
   </div>
 
   <footer>
+    {% include "footer.html" %}
   </footer>
 
   {% block javascript %}{% endblock %}
