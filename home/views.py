@@ -7,8 +7,8 @@ class HomeView(generic.TemplateView):
     template_name = "home/home.html"
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        self.posts = Post.objects.all().order_by('-created_at')[:2]
-        context['posts'] = self.posts
+        self.posts = Post.objects.all().order_by('-created_at')
+        context['posts'] = self.posts[:2]
         return context
 
 class Contact(generic.TemplateView):
