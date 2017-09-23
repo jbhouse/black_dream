@@ -18,52 +18,54 @@
 
   </head>
   <body>
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  <nav class="nav navbar-nav mynav" role='navigation' id='navbar'>
-    <div class="container">
-      <a href="{% url 'posts:list' %}"class='nav-element navbar-brand mynav'>Posts</a>
-      <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='nav-element navbar-brand mynav'>Events</a>
-      <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="/contact/"class='nav-element navbar-brand mynav'>Contact</a>
-      <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='nav-element navbar-brand mynav'>Poetry</a>
-      <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='nav-element navbar-brand mynav'>Photo Gallery</a>
-      <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='nav-element navbar-brand mynav'>Podcasts</a>
-      <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='nav-element navbar-brand mynav'>Videos</a>
-
-      <ul class='nav navbar-nav navbar-right'>
-        {% if user.is_authenticated %}
-          <a class='nav-element navbar-brand mynav' href="{% url 'home' %}">Home</a>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <div class="main-container">
+      <nav class="nav navbar-nav mynav" role='navigation' id='navbar'>
+        <div class="container">
+          <a href="{% url 'posts:list' %}"class='nav-element navbar-brand mynav'>Posts</a>
           <a href="#"class='navbar-brand mynav'>|</a>
-          <a class='nav-element navbar-brand mynav' href="{% url 'accounts:logout' %}">Log Out</a>
-        {% else %}
-          <a class='nav-element navbar-brand mynav' href="{% url 'accounts:login' %}">Log In</a>
+          <a href="#"class='nav-element navbar-brand mynav'>Events</a>
           <a href="#"class='navbar-brand mynav'>|</a>
-          <a class='nav-element navbar-brand mynav' href="{% url 'accounts:signup' %}">Sign Up</a>
-        {% endif %}
-      </ul>
+          <a href="/contact/"class='nav-element navbar-brand mynav'>Contact</a>
+          <a href="#"class='navbar-brand mynav'>|</a>
+          <a href="#"class='nav-element navbar-brand mynav'>Poetry</a>
+          <a href="#"class='navbar-brand mynav'>|</a>
+          <a href="#"class='nav-element navbar-brand mynav'>Photo Gallery</a>
+          <a href="#"class='navbar-brand mynav'>|</a>
+          <a href="#"class='nav-element navbar-brand mynav'>Podcasts</a>
+          <a href="#"class='navbar-brand mynav'>|</a>
+          <a href="#"class='nav-element navbar-brand mynav'>Videos</a>
 
+          <ul class='nav navbar-nav navbar-right'>
+            {% if user.is_authenticated %}
+              <a class='nav-element navbar-brand mynav' href="{% url 'home' %}">Home</a>
+              <a href="#"class='navbar-brand mynav'>|</a>
+              <a class='nav-element navbar-brand mynav' href="{% url 'accounts:logout' %}">Log Out</a>
+            {% else %}
+              <a class='nav-element navbar-brand mynav' href="{% url 'accounts:login' %}">Log In</a>
+              <a href="#"class='navbar-brand mynav'>|</a>
+              <a class='nav-element navbar-brand mynav' href="{% url 'accounts:signup' %}">Sign Up</a>
+            {% endif %}
+          </ul>
+
+        </div>
+      </nav>
+
+      <div class="jumbotron">
+        <div class="">
+            <h2 class="text-center"><span style="display:inline-block;padding:5px;border:10px solid black; #f00;font-size:140%;font-weight:bold;">BLACK DREAM</span></h2>
+        </div>
+      </div>
+
+      <div class="container mycontent">
+        {% block content %}{% endblock %}
+      </div>
+
+      <footer>
+        {% include "footer.html" %}
+      </footer>
+
+      {% block javascript %}{% endblock %}
     </div>
-  </nav>
-
-  <div class="jumbotron">
-    <div class="">
-        <h2 class="text-center"><span style="display:inline-block;padding:5px;border:10px solid black; #f00;font-size:140%;font-weight:bold;">BLACK DREAM</span></h2>
-    </div>
-  </div>
-
-  <div class="container mycontent">
-    {% block content %}{% endblock %}
-  </div>
-
-  <footer>
-    {% include "footer.html" %}
-  </footer>
-
-  {% block javascript %}{% endblock %}
   </body>
 </html>
