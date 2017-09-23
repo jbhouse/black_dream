@@ -2,3 +2,13 @@ a.nav-element:hover {
     background-color: #A9A9A9;
     cursor: pointer;
 }
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
