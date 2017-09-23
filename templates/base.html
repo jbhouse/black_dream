@@ -18,35 +18,43 @@
 
   </head>
   <body>
-
-  <nav class="navbar mynav" role='navigation' id='navbar'>
+  <link rel="stylesheet" href="static/css/base.css">
+  <nav class="nav navbar-nav mynav" role='navigation' id='navbar'>
     <div class="container">
-      <a href="{% url 'posts:list' %}"class='navbar-brand mynav'>Posts</a>
+      <a href="{% url 'posts:list' %}"class='nav-element navbar-brand mynav'>Posts</a>
       <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='navbar-brand mynav'>Events</a>
+      <a href="#"class='nav-element navbar-brand mynav'>Events</a>
       <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='navbar-brand mynav'>Contact</a>
+      <a href="/contact/"class='nav-element navbar-brand mynav'>Contact</a>
       <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='navbar-brand mynav'>Poetry</a>
+      <a href="#"class='nav-element navbar-brand mynav'>Poetry</a>
       <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='navbar-brand mynav'>Photo Gallery</a>
+      <a href="#"class='nav-element navbar-brand mynav'>Photo Gallery</a>
       <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='navbar-brand mynav'>Podcasts</a>
+      <a href="#"class='nav-element navbar-brand mynav'>Podcasts</a>
       <a href="#"class='navbar-brand mynav'>|</a>
-      <a href="#"class='navbar-brand mynav'>Videos</a>
+      <a href="#"class='nav-element navbar-brand mynav'>Videos</a>
 
       <ul class='nav navbar-nav navbar-right'>
         {% if user.is_authenticated %}
-          <li><a class="btn btn-simple" href="{% url 'home' %}">Home</a></li>
-          <li><a class="btn btn-simple" href="{% url 'accounts:logout' %}">Log Out</a></li>
+          <a class='nav-element navbar-brand mynav' href="{% url 'home' %}">Home</a>
+          <a href="#"class='navbar-brand mynav'>|</a>
+          <a class='nav-element navbar-brand mynav' href="{% url 'accounts:logout' %}">Log Out</a>
         {% else %}
-          <li><a href="{% url 'accounts:login' %}">Log In</a></li>
-          <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+          <a class='nav-element navbar-brand mynav' href="{% url 'accounts:login' %}">Log In</a>
+          <a href="#"class='navbar-brand mynav'>|</a>
+          <a class='nav-element navbar-brand mynav' href="{% url 'accounts:signup' %}">Sign Up</a>
         {% endif %}
       </ul>
 
     </div>
   </nav>
+
+  <div class="jumbotron">
+    <div class="">
+        <h2 class="text-center"><span style="display:inline-block;padding:5px;border:10px solid black; #f00;font-size:140%;font-weight:bold;">BLACK DREAM</span></h2>
+    </div>
+  </div>
 
   <div class="container mycontent">
     {% block content %}{% endblock %}

@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'posts',
     'replies',
     'accounts',
-    'contact',
     'events',
     'home',
     'photo_gallery',
