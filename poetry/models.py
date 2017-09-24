@@ -16,7 +16,7 @@ class Poem(models.Model):
 
     def reply_count(self):
         poem = Poem.objects.prefetch_related('poem_replies').get(id=self.pk)
-        return poem.replies.all().count()
+        return poem.poem_replies.all().count()
 
     def get_absolute_url(self):
         return reverse("poems:detail", pk=self.pk)

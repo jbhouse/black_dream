@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block javascript %}
+  <script>
+    
+  </script>
+{% endblock %}
+{% block content %}
+  <h2>{{poem.title}}</h2>
+  <h3>{{poem.details}}</h3>
+  <div class="container">
+    <form class='reply-form' method="poem">
+      {% csrf_token %}
+      {% bootstrap_form reply_form %}
+      <input id='reply-button' type='submit' name='poem-reply-{{poem.id}}' class='btn btn-primary' value='Post Reply'>
+    </form>
+    <div class="poem-replies">
+      {% for reply in poem_replies %}
+        {% if reply.user == request.user %}
+          <div>
+            <h4>{{reply.text}}</h4>
+            <p>
+              <a class='delete' id='reply-{{reply.pk}}' href='#'>
+                <span class='glyphicon glyphicon-remove text-danger'></span>
+                <span class='text-danger icon-label'>Delete</span>
+              </a>
+            </p>
+            <p>On: {{reply.created_at}}</p>
+          </div>
+        {% else %}
+          <div>
+            <h4>{{reply.text}}</h4>
+            <p>Posted by: {{reply.user}}</p>
+            <p>On: {{reply.created_at}}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

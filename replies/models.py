@@ -8,8 +8,12 @@ from django import template
 register = template.Library()
 
 class ReplyManager(models.Manager):
-    def create_reply(self, user, post):
+    def create_post_reply(self, user, post):
         reply = self.create(user = user, post = post)
+        return reply
+
+    def create_poem_reply(self, user, poem):
+        reply = self.create(user = user, poem = poem)
         return reply
 
 class Reply(models.Model):
@@ -23,8 +27,8 @@ class Reply(models.Model):
     def __str__(self):
         return self.text
 
-    def get_absolute_url(self):
-        return reverse("replies:detail")
+    # def get_absolute_url(self):
+    #     return reverse("replies:detail")
 
     class Meta:
         order_with_respect_to = 'post'
