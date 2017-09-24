@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from home.views import HomeView,Contact
+from photo_gallery.views import PhotoList
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^contact/$', Contact.as_view(), name='contact'),
+    url(r'^photos/$', PhotoList.as_view(), name='photos'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/',include('accounts.urls',namespace='accounts')),
     url(r'^posts/',include('posts.urls',namespace='posts')),

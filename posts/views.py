@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.views import View
 from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
+# from django.shortcuts import redirect
 from django.urls import reverse
-from django.http import HttpResponseForbidden
+# from django.http import HttpResponseForbidden
 from replies.forms import ReplyForm
 from django.views import generic
 from posts.models import Post
@@ -23,6 +23,8 @@ class PostList(generic.ListView):
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
+        self.posts = Post.objects.all().order_by('-created_at')
+        context['posts'] = self.posts[:2]
         context['post_list'] = super().get_queryset().order_by('-created_at')
         return context
 
@@ -33,6 +35,8 @@ class PostDisplay(generic.DetailView):
         context = super(PostDisplay, self).get_context_data(**kwargs)
         post = get_object_or_404(Post, pk=self.kwargs['pk'])
         self.post_replies = Post.objects.prefetch_related("post_replies").get(id=post.pk)
+        self.posts = Post.objects.all().order_by('-created_at')
+        context['posts'] = self.posts[:2]
         context['reply_form'] = ReplyForm()
         context['post_replies'] = self.post_replies.post_replies.all().order_by('-created_at')
         return context

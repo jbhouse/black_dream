@@ -1,13 +1,10 @@
-{% extends "base.html" %}
 {% load bootstrap3 %}
-
-{% block content %}
-<div class="container">
-    <h1>Login</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <input type="submit" value="Login" class="btn btn-default">
-    </form>
+<div class="nav-element">
+  <form class='login-form' method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" value="" placeholder="username">
+      <input type="submit" value="Login" class="btn btn-default"><br />
+      <input type="password" name="password" value="" placeholder="password">
+      <button type="button" class="btn btn-default" name="button"><a href="{% url 'accounts:signup' %}">Sign Up</a></button>
+  </form>
 </div>
-{% endblock %}

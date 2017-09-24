@@ -30,26 +30,50 @@
           <a href="#"class='navbar-brand mynav'>|</a>
           <a href="{% url 'poems:list' %}"class='nav-element navbar-brand mynav'>Poetry</a>
           <a href="#"class='navbar-brand mynav'>|</a>
-          <a href="#"class='nav-element navbar-brand mynav'>Photo Gallery</a>
+          <a href="/photos/"class='nav-element navbar-brand mynav'>Photo Gallery</a>
           <a href="#"class='navbar-brand mynav'>|</a>
           <a href="#"class='nav-element navbar-brand mynav'>Podcasts</a>
           <a href="#"class='navbar-brand mynav'>|</a>
           <a href="#"class='nav-element navbar-brand mynav'>Videos</a>
 
-          <ul class='nav navbar-nav navbar-right'>
+          <ul class='login-out nav navbar-nav navbar-right'>
             {% if user.is_authenticated %}
-              <a class='nav-element navbar-brand mynav' href="{% url 'home' %}">Home</a>
-              <a href="#"class='navbar-brand mynav'>|</a>
-              <a class='nav-element navbar-brand mynav' href="{% url 'accounts:logout' %}">Log Out</a>
+              <div class="home-logout">
+                <a class='nav-element navbar-brand mynav' href="{% url 'home' %}">Home</a>
+                <a href='#'class='navbar-brand mynav'>|</a>
+                <a class='nav-element navbar-brand mynav' href="{% url 'accounts:logout' %}">Log Out</a>
+              </div>
             {% else %}
-              <a class='nav-element navbar-brand mynav' href="{% url 'accounts:login' %}">Log In</a>
-              <a href="#"class='navbar-brand mynav'>|</a>
-              <a class='nav-element navbar-brand mynav' href="{% url 'accounts:signup' %}">Sign Up</a>
+              {% include "accounts/login.html" %}
+              <div class="home-logout hidden">
+                <a class='nav-element navbar-brand mynav' href="{% url 'home' %}">Home</a>
+                <a href='#'class='navbar-brand mynav'>|</a>
+                <a class='nav-element navbar-brand mynav' href="{% url 'accounts:logout' %}">Log Out</a>
+              </div>
             {% endif %}
           </ul>
 
         </div>
       </nav>
+      <script>
+      $('.login-form').on('submit',function(e){
+        e.preventDefault();
+        var that = $(this)
+        var data = that.serialize()
+        login()
+        function login() {
+          $.ajax({
+            url  : '/accounts/login/',
+            type : "POST",
+            data : data,
+            success: function() {
+              that.addClass('hidden')
+              $('.home-logout').removeClass('hidden')
+            }
+          })
+        }
+      })
+      </script>
 
       <div class="jumbotron">
         <div class="">
@@ -76,7 +100,7 @@
           </div>
         </div>
       </footer>
-      
+
       <script src="{% static 'js/app.js' %}"></script>
       {% block javascript %}{% endblock %}
     </div>
