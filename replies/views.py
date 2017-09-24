@@ -7,6 +7,7 @@ from django.views import generic
 from . import models
 from replies.models import Reply
 from posts.models import Post
+from poetry.models import Poem
 
 # Create your views here.
 def CreateReply(request):
@@ -14,13 +15,17 @@ def CreateReply(request):
         response_data = {}
         if request.user.is_authenticated():
             sender = request.user
+            replyId = request.POST.get('replyId')
+        if request.POST.get('replyto') == 'post':
+            post = get_object_or_404(Post, pk=replyId)
+            new_reply = Reply.objects.create_post_reply(sender,post)
+        elif request.POST.get('replyto') == 'poem':
+            poem = get_object_or_404(Poem, pk=replyId)
+            new_reply = Reply.objects.create_poem_reply(sender,poem)
         text = request.POST.get('reply')
-        postId = request.POST.get('postId')
-        post = get_object_or_404(Post, pk=postId)
-        new_reply = Reply.objects.create_reply(sender,post)
         new_reply.text = text
         new_reply.save()
-        response_data['postId'] = postId
+        response_data['replyId'] = replyId
         response_data['sender_id'] = sender.pk
         response_data['text'] = new_reply.text
         response_data['id'] = new_reply.pk

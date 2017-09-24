@@ -23,6 +23,7 @@ class PoemList(generic.ListView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['poem_list'] = super().get_queryset().order_by('-created_at')
+        print(context['poem_list'])
         return context
 
 class PoemDisplay(generic.DetailView):
@@ -33,7 +34,8 @@ class PoemDisplay(generic.DetailView):
         poem = get_object_or_404(Poem, pk=self.kwargs['pk'])
         self.poem_replies = Poem.objects.prefetch_related("poem_replies").get(id=poem.pk)
         context['reply_form'] = ReplyForm()
-        context['poem_replies'] = self.poem_replies.replies.all().order_by('-created_at')
+        print(self.poem_replies)
+        context['poem_replies'] = self.poem_replies.poem_replies.all().order_by('-created_at')
         return context
 
 class PoemDetail(View):

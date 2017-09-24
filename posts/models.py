@@ -15,11 +15,11 @@ class Post(models.Model):
         return self.title
 
     def reply_count(self):
-        post = Post.objects.prefetch_related('replies').get(id=self.pk)
-        return post.replies.all().count()
+        post = Post.objects.prefetch_related('post_replies').get(id=self.pk)
+        return post.post_replies.all().count()
 
-    def get_absolute_url(self):
-        return reverse("posts:detail", pk=self.pk)
+    # def get_absolute_url(self):
+    #     return reverse("posts:detail", pk=self.pk)
 
     class Meta:
         ordering = ['created_at']

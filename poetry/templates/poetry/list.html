@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for poem in poem_list %}
+    <h2><a href="{% url 'poems:detail' pk=poem.pk %}">{{poem.title}}</a></h2>
+    <p>{{poem.details|truncatechars:80}}</p>
+  {% endfor %}
+{% endblock %}
