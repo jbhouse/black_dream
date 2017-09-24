@@ -3,8 +3,9 @@
 {% load static %}
 {% block javascript %}
   <script>
-    
+  var replyObject = 'poem'
   </script>
+  <script type="text/javascript" src="{% static 'js/replies.js' %}"></script>
 {% endblock %}
 {% block content %}
   <h2>{{poem.title}}</h2>
@@ -13,9 +14,9 @@
     <form class='reply-form' method="poem">
       {% csrf_token %}
       {% bootstrap_form reply_form %}
-      <input id='reply-button' type='submit' name='poem-reply-{{poem.id}}' class='btn btn-primary' value='Post Reply'>
+      <input id='reply-button' type='submit' name='poem-reply-{{poem.id}}' class='btn btn-primary' value='Poem Reply'>
     </form>
-    <div class="poem-replies">
+    <div class="replies-list">
       {% for reply in poem_replies %}
         {% if reply.user == request.user %}
           <div>

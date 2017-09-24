@@ -2,51 +2,10 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block javascript %}
-{# <script type="text/javascript" src="{% static 'js/replies.js' %}"></script>#}
-  <script type="text/javascript">
-  $('div.post-replies').on('click','a',function(e){
-    e.preventDefault();
-    var that = $(this)
-    var replyId = that.attr('id').slice(6,that.attr('id').length)
-    deleteReply();
-    function deleteReply(){
-      $.ajax({
-        url : "/replies/delete/"+replyId,
-        type : "DELETE",
-        data : {replyId:replyId},
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-        },
-        success : function(json){
-          $('#reply-'+json.id).parent().parent().addClass('hidden')
-        }
-      })
-    }
-  })
-
-  $('.reply-form').on('submit',function(e){
-    e.preventDefault();
-    var that = $(this)
-    var reply = $('#reply').val()
+<script>
     var replyObject = 'post'
-    var replyId = document.getElementById('reply-button').getAttribute('name').slice(11,document.getElementById('reply-button').getAttribute('name').length)
-    makeReply();
-    function makeReply(){
-      $.ajax({
-        url       : "{% url 'replies:create' %}",
-        type      : "POST",
-        data      : {reply:reply, replyId:replyId, replyto:replyObject},
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-        },
-        success : function(json){
-          $('.post-replies').prepend("<div><h4>"+json.text+"</h4><p><a class='delete' id='reply-"+json.id+"' href='#'><span class='glyphicon glyphicon-remove text-danger'></span><span class='text-danger icon-label'>Delete</span></a></p></div>")
-          document.getElementById('reply').value = ''
-        }
-      })
-    }
-  })
-  </script>
+</script>
+<script type="text/javascript" src="{% static 'js/replies.js' %}"></script>
 {% endblock %}
 {% block content %}
   <h2>{{post.title}}</h2>
@@ -57,7 +16,7 @@
       {% bootstrap_form reply_form %}
       <input id='reply-button' type='submit' name='post-reply-{{post.id}}' class='btn btn-primary' value='Post Reply'>
     </form>
-    <div class="post-replies">
+    <div class="replies-list">
       {% for reply in post_replies %}
         {% if reply.user == request.user %}
           <div>
