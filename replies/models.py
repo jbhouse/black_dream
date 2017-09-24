@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from posts.models import Post
 from poetry.models import Poem

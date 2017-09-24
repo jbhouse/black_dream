@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block content %}
+    <h1>photo gallery</h1>
+    {% for photo in photo_list %}
+      <img src="{{photo.source}}" alt="">
+      {% if photo.description != '' %}
+        <h3>description: {{photo.description}}</h3>
+      {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -8,6 +8,7 @@ from django.http import HttpResponseForbidden
 from replies.forms import ReplyForm
 from django.views import generic
 from poetry.models import Poem
+from posts.models import Post
 from replies.models import Reply
 # from braces.views import SelectRelatedMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,7 +24,8 @@ class PoemList(generic.ListView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['poem_list'] = super().get_queryset().order_by('-created_at')
-        print(context['poem_list'])
+        self.posts = Post.objects.all().order_by('-created_at')
+        context['posts'] = self.posts[:2]
         return context
 
 class PoemDisplay(generic.DetailView):
@@ -33,8 +35,9 @@ class PoemDisplay(generic.DetailView):
         context = super(PoemDisplay, self).get_context_data(**kwargs)
         poem = get_object_or_404(Poem, pk=self.kwargs['pk'])
         self.poem_replies = Poem.objects.prefetch_related("poem_replies").get(id=poem.pk)
+        self.posts = Post.objects.all().order_by('-created_at')
+        context['posts'] = self.posts[:2]
         context['reply_form'] = ReplyForm()
-        print(self.poem_replies)
         context['poem_replies'] = self.poem_replies.poem_replies.all().order_by('-created_at')
         return context
 
