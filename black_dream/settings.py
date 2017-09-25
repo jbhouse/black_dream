@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'events',
     'home',
     'photo_gallery',
-    'podcasts',
     'poetry',
     'videos',
     'django.contrib.admin',

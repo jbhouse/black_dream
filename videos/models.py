@@ -5,3 +5,4 @@ class Video(models.Model):
     video = EmbedVideoField()
     created_at = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=80, default='Click for more')
+    is_video = models.BooleanField(default=True)
