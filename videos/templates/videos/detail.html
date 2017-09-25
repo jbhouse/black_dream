@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block content %}
+  {% load embed_video_tags %}
+  <div class="col-md-6 col-md-offset-3">
+    {% if video.description != 'Click for more' %}
+      <h3>{{video.description}}</h3>
+    {% endif %}
+    {% video video.video 'medium' %}<br/>
+  </div>
+  <div class="container">
+    <form class='reply-form' method="post">
+      {% csrf_token %}
+      {% bootstrap_form reply_form %}
+      <input id='reply-button' type='submit' name='video-reply-{{video.id}}' class='btn btn-primary' value='Post Reply'>
+    </form>
+  </div>
+{% endblock %}

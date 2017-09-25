@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from posts.models import Post
 from poetry.models import Poem
+from videos.models import Video
 User = get_user_model()
 from django import template
 register = template.Library()
@@ -22,6 +23,7 @@ class Reply(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     post = models.ForeignKey(Post, blank=True, null=True, related_name='post_replies', on_delete=models.CASCADE)
     poem = models.ForeignKey(Poem, blank=True, null=True, related_name='poem_replies', on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, blank=True, null=True, related_name='video_replies', on_delete=models.CASCADE)
     objects = ReplyManager()
 
     def __str__(self):

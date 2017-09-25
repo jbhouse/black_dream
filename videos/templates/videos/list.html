@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  {% load embed_video_tags %}
+  {% for video in video_list %}
+    <div class="col-md-6 col-md-offset-3">
+      <h3><a href="{% url 'videos:detail' pk=video.pk %}">{{video.description}}</a></h3>
+      {% video video.video 'medium' %}<br/>
+    </div>
+  {% endfor %}
+{% endblock %}

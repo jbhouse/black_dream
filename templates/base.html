@@ -34,7 +34,7 @@
           <a href="#"class='navbar-brand mynav'>|</a>
           <a href="#"class='nav-element navbar-brand mynav'>Podcasts</a>
           <a href="#"class='navbar-brand mynav'>|</a>
-          <a href="#"class='nav-element navbar-brand mynav'>Videos</a>
+          <a href="{% url 'videos:list' %}"class='nav-element navbar-brand mynav'>Videos</a>
 
           <ul class='login-out nav navbar-nav navbar-right'>
             {% if user.is_authenticated %}
