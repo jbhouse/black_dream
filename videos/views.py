@@ -13,6 +13,22 @@ from django.http import Http404,JsonResponse
 from django.contrib.auth import get_user_model
 User = get_user_model()
 # Create your views here.
+class PodCastList(generic.ListView):
+    model = Video
+    template_name = 'videos/list.html'
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        self.posts = Post.objects.all().order_by('-created_at')
+        context['posts'] = self.posts[:2]
+        media_list = super().get_queryset().order_by('-created_at')
+        video_list = []
+        for x in media_list:
+            if(x.is_video == False):
+                video_list.append(x)
+        context['video_list'] = video_list
+        return context
+
 class VideoList(generic.ListView):
     model = Video
     template_name = 'videos/list.html'
@@ -21,7 +37,12 @@ class VideoList(generic.ListView):
         context = super().get_context_data(**kwargs)
         self.posts = Post.objects.all().order_by('-created_at')
         context['posts'] = self.posts[:2]
-        context['video_list'] = super().get_queryset().order_by('-created_at')
+        media_list = super().get_queryset().order_by('-created_at')
+        video_list = []
+        for x in media_list:
+            if(x.is_video == True):
+                video_list.append(x)
+        context['video_list'] = video_list
         return context
 
 class VideoDisplay(generic.DetailView):
