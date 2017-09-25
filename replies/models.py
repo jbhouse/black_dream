@@ -17,6 +17,10 @@ class ReplyManager(models.Manager):
         reply = self.create(user = user, poem = poem)
         return reply
 
+    def create_video_reply(self, user, video):
+        reply = self.create(user = user, video = video)
+        return reply
+
 class Reply(models.Model):
     text = models.TextField()
     user = models.ForeignKey(User,related_name='replies')

@@ -8,6 +8,7 @@ from . import models
 from replies.models import Reply
 from posts.models import Post
 from poetry.models import Poem
+from videos.models import Video
 
 # Create your views here.
 def CreateReply(request):
@@ -22,6 +23,9 @@ def CreateReply(request):
         elif request.POST.get('replyto') == 'poem':
             poem = get_object_or_404(Poem, pk=replyId)
             new_reply = Reply.objects.create_poem_reply(sender,poem)
+        elif request.POST.get('replyto') == 'video':
+            video = get_object_or_404(Video, pk=replyId)
+            new_reply = Reply.objects.create_video_reply(sender,video)            
         text = request.POST.get('reply')
         new_reply.text = text
         new_reply.save()

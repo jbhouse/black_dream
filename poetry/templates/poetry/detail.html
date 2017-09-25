@@ -11,7 +11,7 @@
   <h2>{{poem.title}}</h2>
   <h3>{{poem.details}}</h3>
   <div class="container">
-    <form class='reply-form' method="poem">
+    <form class='reply-form' method="POST">
       {% csrf_token %}
       {% bootstrap_form reply_form %}
       <input id='reply-button' type='submit' name='poem-reply-{{poem.id}}' class='btn btn-primary' value='Poem Reply'>
