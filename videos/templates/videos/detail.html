@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load static %}
+{% block javascript %}
+  <script>
+  var replyObject = 'video'
+  </script>
+  <script type="text/javascript" src="{% static 'js/replies.js' %}"></script>
+{% endblock %}
 {% block content %}
   {% load embed_video_tags %}
   <div class="col-md-6 col-md-offset-3">
@@ -10,10 +16,32 @@
     {% video video.video 'medium' %}<br/>
   </div>
   <div class="container">
-    <form class='reply-form' method="post">
+    <form class='reply-form' method="POST">
       {% csrf_token %}
       {% bootstrap_form reply_form %}
-      <input id='reply-button' type='submit' name='video-reply-{{video.id}}' class='btn btn-primary' value='Post Reply'>
+      <input id='reply-button' type='submit' name='video-reply-{{video.id}}' class='btn btn-primary' value='Video Reply'>
     </form>
+    <div class="replies-list">
+      {% for reply in video_replies %}
+        {% if reply.user == request.user %}
+          <div>
+            <h4>{{reply.text}}</h4>
+            <p>
+              <a class='delete' id='reply-{{reply.pk}}' href='#'>
+                <span class='glyphicon glyphicon-remove text-danger'></span>
+                <span class='text-danger icon-label'>Delete</span>
+              </a>
+            </p>
+            <p>On: {{reply.created_at}}</p>
+          </div>
+        {% else %}
+          <div>
+            <h4>{{reply.text}}</h4>
+            <p>Posted by: {{reply.user}}</p>
+            <p>On: {{reply.created_at}}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

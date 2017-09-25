@@ -14,12 +14,18 @@ $('div.replies-list').on('click','a',function(e){
     })
   }
 })
+//
+// $('#reply-button').on('click', function(e){
+//   e.preventDefault();
+//   var that = $(this)
+//   console.log(that);
+// })
 
 $('.reply-form').on('submit',function(e){
   e.preventDefault();
   var that = $(this)
   var reply = $('#reply').val()
-  var replyId = document.getElementById('reply-button').getAttribute('name').slice(11,document.getElementById('reply-button').getAttribute('name').length)
+  var replyId = document.getElementById('reply-button').getAttribute('name').slice(12,document.getElementById('reply-button').getAttribute('name').length)
   makeReply();
   function makeReply(){
     $.ajax({
