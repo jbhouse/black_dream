@@ -2,11 +2,13 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block content %}
-    <h1>photo gallery</h1>
-    {% for photo in photo_list %}
-      <img src="{{photo.source}}" alt="">
-      {% if photo.description != '' %}
-        <h3>description: {{photo.description}}</h3>
-      {% endif %}
-    {% endfor %}
+  <div class='col-md-12'>
+    <h1 class="foot">Photo Gallery</h1>
+  </div>
+  {% for photo in photo_list %}
+    <img src="{{photo.source}}" alt="">
+    {% if photo.description != '' %}
+      <h3>description: {{photo.description}}</h3>
+    {% endif %}
+  {% endfor %}
 {% endblock %}

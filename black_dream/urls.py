@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^accounts/',include('accounts.urls',namespace='accounts')),
     url(r'^videos/',include('videos.urls',namespace='videos')),
     url(r'^posts/',include('posts.urls',namespace='posts')),
+    url(r'^events/',include('events.urls',namespace='events')),
     url(r'^poems/',include('poetry.urls',namespace='poems')),
     url(r'^replies/',include('replies.urls',namespace='replies')),
 ]
