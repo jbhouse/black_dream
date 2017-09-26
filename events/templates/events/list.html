@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/centering.css' %}">
+  <div class='col-md-12'>
+    <h1 class="foot">Events</h1>
+  </div>
+  <div class='Aligner col-md-12'>
+    <p>recieve emails about upcomign events: <input class="Aligner-center" id="checkBox" type="checkbox"></p>
+  </div>
+  {% for event in event_list %}
+    <h3>description: {{event.details}}</h3>
+    <p>event name: {{event.title}} date: {{event.date}}</p>
+  {% endfor %}
+{% endblock %}

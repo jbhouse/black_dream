@@ -14,12 +14,6 @@ $('div.replies-list').on('click','a',function(e){
     })
   }
 })
-//
-// $('#reply-button').on('click', function(e){
-//   e.preventDefault();
-//   var that = $(this)
-//   console.log(that);
-// })
 
 $('.reply-form').on('submit',function(e){
   e.preventDefault();

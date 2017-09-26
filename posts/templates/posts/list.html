@@ -2,8 +2,10 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block content %}
-    <h1>posts list</h1>
-    {% for post in post_list %}
-      {% include "posts/_post.html" with post=post %}
-    {% endfor %}
+    <div class='col-md-12'>
+      <h1 class="foot">posts list</h1>
+    </div>
+      {% for post in post_list %}
+        {% include "posts/_post.html" with post=post %}
+      {% endfor %}
 {% endblock %}
